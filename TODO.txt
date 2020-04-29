@@ -1,0 +1,3 @@
+﻿Look into reputation with notable tracking for ai, they may not keep track of reputation
+Look into standardizing arena equipment - even armor
+Make other heroes that the player start with the actual amount of health they have in tournaments
