@@ -81,9 +81,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\tomelib\tomelib\tomelib.csproj">
-      <Project>{fc563a43-cc05-40f1-a7d4-9a81c714c3a6}</Project>
-      <Name>tomelib</Name>
+    <ProjectReference Include="..\GantryLib\GantryLib.csproj">
+      <Project>{04be4465-5fec-4282-a545-830bbe397353}</Project>
+      <Name>GantryLib</Name>
     </ProjectReference>
   </ItemGroup>
   <!-- Post-Build -->

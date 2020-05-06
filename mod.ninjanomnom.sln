@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YANS", "YANS\YANS.csproj", "{84E3026F-F110-4121-9268-CC1CE1307646}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FC563A43-CC05-40F1-A7D4-9A81C714C3A6} = {FC563A43-CC05-40F1-A7D4-9A81C714C3A6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAS", "YAS\YAS.csproj", "{5E65CDC4-5B84-45D9-BB02-EFCEC6F6A6D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tomelib", "tomelib\tomelib\tomelib.csproj", "{FC563A43-CC05-40F1-A7D4-9A81C714C3A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GantryLib", "GantryLib\GantryLib.csproj", "{04BE4465-5FEC-4282-A545-830BBE397353}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84E3026F-F110-4121-9268-CC1CE1307646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84E3026F-F110-4121-9268-CC1CE1307646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84E3026F-F110-4121-9268-CC1CE1307646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84E3026F-F110-4121-9268-CC1CE1307646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E65CDC4-5B84-45D9-BB02-EFCEC6F6A6D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E65CDC4-5B84-45D9-BB02-EFCEC6F6A6D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E65CDC4-5B84-45D9-BB02-EFCEC6F6A6D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E65CDC4-5B84-45D9-BB02-EFCEC6F6A6D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC563A43-CC05-40F1-A7D4-9A81C714C3A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC563A43-CC05-40F1-A7D4-9A81C714C3A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC563A43-CC05-40F1-A7D4-9A81C714C3A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC563A43-CC05-40F1-A7D4-9A81C714C3A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04BE4465-5FEC-4282-A545-830BBE397353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04BE4465-5FEC-4282-A545-830BBE397353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04BE4465-5FEC-4282-A545-830BBE397353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04BE4465-5FEC-4282-A545-830BBE397353}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6298B9CB-1D20-43A4-8CAB-C1BDDDB3F710}
+	EndGlobalSection
+EndGlobal
