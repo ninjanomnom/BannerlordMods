@@ -70,7 +70,6 @@
   </ItemGroup>
   <!-- Files & Classes -->
   <ItemGroup>
-    <Compile Include="src\KingdomBuilder\Extensions\VillageExtension.cs" />
     <Compile Include="src\KingdomBuilder\HarmonyPatches\VillageTradeBehavior.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

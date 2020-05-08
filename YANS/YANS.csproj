@@ -70,8 +70,8 @@
   </ItemGroup>
   <!-- Files & Classes -->
   <ItemGroup>
+    <Compile Include="src\Content\PartyTraining.cs" />
     <Compile Include="src\Content\PrisonerRecruitment.cs" />
-    <Compile Include="src\Content\SettlementTraining.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="SubModule.xml" />

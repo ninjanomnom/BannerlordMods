@@ -1,17 +1,7 @@
-﻿using HarmonyLib;
-using TaleWorlds.Core;
-using TaleWorlds.Localization;
+﻿using GantryLib.ExpUnification;
+using HarmonyLib;
 using TaleWorlds.MountAndBlade;
-using TaleWorlds.TwoDimension;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.SandBox.GameComponents;
-using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
-using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Diagnostics;
-using TaleWorlds.Library;
+using YANS.Content;
 
 namespace YANS
 {
@@ -29,6 +19,8 @@ namespace YANS
         {
             base.OnSubModuleLoad();
             harmony.PatchAll();
+
+            DailyExpUnification.Register(new PartyTraining());
         }
 
         protected override void OnSubModuleUnloaded()

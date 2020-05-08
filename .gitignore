@@ -2,3 +2,7 @@
 obj/
 packages/
 YAS/TODO.txt
+
+*.user
+
+GantryLib/bin/

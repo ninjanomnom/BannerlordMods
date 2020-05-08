@@ -9,7 +9,6 @@ using System.Collections.Generic;
 
 namespace YANS.Content
 {
-    [HarmonyPatch]
     internal class PrisonerRecruitment
     {
         [HarmonyPostfix]
