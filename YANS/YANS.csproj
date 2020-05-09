@@ -71,7 +71,8 @@
   <!-- Files & Classes -->
   <ItemGroup>
     <Compile Include="src\Content\PartyTraining.cs" />
-    <Compile Include="src\Content\PrisonerRecruitment.cs" />
+    <Compile Include="src\Content\PrisonerRecruitment\PrisonerRecruitmentHelpers.cs" />
+    <Compile Include="src\Content\PrisonerRecruitment\PrisonerRecruitmentPatches.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="SubModule.xml" />
@@ -86,9 +87,13 @@
       <Name>GantryLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>xcopy /d /y "$(MSBuildProjectDirectory)\SubModule.xml" "E:\Gaming\SteamLibrary\Windows\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\YANS"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

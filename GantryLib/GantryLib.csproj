@@ -1,4 +1,4 @@
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Main Project Properties -->
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -71,16 +71,23 @@
   <!-- Files & Classes -->
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\ExpUnification\DailyExpUnification.cs" />
+    <Compile Include="src\ExpUnification\DailyExpHelpers.cs" />
+    <Compile Include="src\ExpUnification\DailyExpPatches.cs" />
     <Compile Include="src\ExpUnification\DailyExpSource.cs" />
     <Compile Include="src\Extensions\AgentExtensions.cs" />
     <Compile Include="src\Extensions\EquipmentExtensions.cs" />
     <Compile Include="src\Extensions\RecruitPrisonersCampaignBehaviorExtensions.cs" />
     <Compile Include="src\Extensions\VillageExtension.cs" />
     <Compile Include="src\ReflectionHelpers\PrivateFunc.cs" />
+    <Compile Include="SubModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SubModule.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <!-- Post-Build -->
   <PropertyGroup>

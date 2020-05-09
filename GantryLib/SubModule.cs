@@ -1,13 +1,11 @@
-﻿using GantryLib.ExpUnification;
-using HarmonyLib;
+﻿using HarmonyLib;
 using TaleWorlds.MountAndBlade;
-using YANS.Content;
 
-namespace YANS
+namespace GantryLib
 {
     public class SubModule : MBSubModuleBase
     {
-        private const string harmonyId = "mod.ninjanomnom.yans";
+        private const string harmonyId = "mod.ninjanomnom.GantryLib";
         private readonly Harmony harmony;
 
         public SubModule()
@@ -19,8 +17,6 @@ namespace YANS
         {
             base.OnSubModuleLoad();
             harmony.PatchAll();
-
-            DailyExpHelpers.Register(new PartyTraining());
         }
 
         protected override void OnSubModuleUnloaded()

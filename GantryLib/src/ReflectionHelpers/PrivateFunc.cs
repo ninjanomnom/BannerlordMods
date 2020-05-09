@@ -21,9 +21,11 @@ namespace GantryLib.ReflectionHelpers
         {
             Debug.Assert(funcName != null, "PrivateFunc needs a function name to get.");
 
-            var function = typeof(ownerType).GetMethod(funcName).CreateDelegate(typeof(signature)) as signature;
+            MethodInfo methodInfo = typeof(ownerType).GetMethod(funcName);
 
-            Debug.Assert(function != null, "No function was found with the given signature.");
+            Debug.Assert(methodInfo != null, "No function was found with the given signature.");
+
+            var function = methodInfo.CreateDelegate(typeof(signature)) as signature;
 
             _cache.Add(typeof(ownerType), function);
             _name = funcName;
