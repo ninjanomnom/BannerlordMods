@@ -78,7 +78,6 @@
     <Compile Include="src\Extensions\EquipmentExtensions.cs" />
     <Compile Include="src\Extensions\RecruitPrisonersCampaignBehaviorExtensions.cs" />
     <Compile Include="src\Extensions\VillageExtension.cs" />
-    <Compile Include="src\ReflectionHelpers\PrivateFunc.cs" />
     <Compile Include="SubModule.cs" />
   </ItemGroup>
   <ItemGroup>

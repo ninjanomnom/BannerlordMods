@@ -1,5 +1,4 @@
-﻿using GantryLib.ReflectionHelpers;
-using System;
+﻿using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.Core;
@@ -8,17 +7,13 @@ namespace GantryLib.Extensions
 {
     public static class RecruitPrisonersCampaignBehaviorExtensions
     {
-        // We use these private methods to change as little as possible when we replace the DailyTick function
-        private static readonly PrivateFunc<RecruitPrisonersCampaignBehavior, Func<CharacterObject, bool>> IsPrisonerRecruitable =
-            new PrivateFunc<RecruitPrisonersCampaignBehavior, Func<CharacterObject, bool>>("IsPrisonerRecruitable");
-        private static readonly PrivateFunc<RecruitPrisonersCampaignBehavior, Func<CharacterObject, int>> GetRecruitableNumberInternal =
-            new PrivateFunc<RecruitPrisonersCampaignBehavior, Func<CharacterObject, int>>("GetRecruitableNumberInternal");
-        private static readonly PrivateFunc<RecruitPrisonersCampaignBehavior, Action<CharacterObject, int>> SetRecruitableNumberInternal =
-            new PrivateFunc<RecruitPrisonersCampaignBehavior, Action<CharacterObject, int>>("SetRecruitableNumberInternal");
-
-        public static int GetNewRecruitables(this RecruitPrisonersCampaignBehavior src, MobileParty party, CharacterObject prisoner)
+        public static int GetNewRecruitables(this RecruitPrisonersCampaignBehavior src, MobileParty party, CharacterObject prisoner, float chanceModifier = 1)
         {
-            if(!IsPrisonerRecruitable.Get(src).Invoke(prisoner))
+            int recruitable = party == MobileParty.MainParty
+                ? src.GetRecruitableNumber(prisoner)
+                : party.PrisonRoster.GetElementNumber(party.PrisonRoster.FindIndexOfTroop(prisoner));
+            
+            if (recruitable <= 0)
             {
                 return 0;
             }
@@ -30,8 +25,7 @@ namespace GantryLib.Extensions
                 return 0;
             }
 
-            float chance = dailyRecruitedPrisoners[prisoner.Tier];
-            int recruitable = GetRecruitableNumberInternal.Get(src).Invoke(prisoner);
+            float chance = dailyRecruitedPrisoners[prisoner.Tier] * chanceModifier;
 
             int newRecruited = 0;
             for (var i = 0; i < recruitable; i++ )
@@ -42,7 +36,7 @@ namespace GantryLib.Extensions
                 }
 
                 newRecruited++;
-                chance /= 2;
+                chance *= 0.5f;
             }
 
             return newRecruited;
@@ -50,10 +44,10 @@ namespace GantryLib.Extensions
 
         public static void AddNewRecruits(this RecruitPrisonersCampaignBehavior src, MobileParty party, CharacterObject prisoner, int amount)
         {
-            var recruitable = GetRecruitableNumberInternal.Get(src).Invoke(prisoner);
+            var recruitable = src.GetRecruitableNumber(prisoner);
             var newTotal = Math.Min(recruitable + amount, party.PrisonRoster.GetTroopCount(prisoner));
 
-            SetRecruitableNumberInternal.Get(src).Invoke(prisoner, newTotal);
+            src.SetRecruitableNumber(prisoner, newTotal);
         }
     }
 }

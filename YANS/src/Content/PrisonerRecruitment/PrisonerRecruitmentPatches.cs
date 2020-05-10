@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.SandBox.GameComponents;
@@ -12,22 +12,23 @@ namespace YANS.Content.PrisonerRecruitment
     [HarmonyPatch]
     internal class PrisonerRecruitmentPatches
     {
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(RecruitPrisonersCampaignBehavior), "DailyTick")]
+        internal static IEnumerable<CodeInstruction> DailyTick(IEnumerable<CodeInstruction> instructions)
+        {
+            var prisonersRecruitMethod = typeof(DefaultPrisonerRecruitmentCalculationModel).GetMethod("GetDailyRecruitedPrisoners");
+            var noop = new Func<MobileParty, float[]>((party) => new float[0]).Method;
+
+            return instructions.MethodReplacer(prisonersRecruitMethod, noop);
+        }
+
         [HarmonyPostfix]
         [HarmonyPatch(typeof(RecruitPrisonersCampaignBehavior), "DailyTick")]
         internal static void DailyTick(RecruitPrisonersCampaignBehavior __instance)
         {
-            MobileParty party = MobileParty.MainParty;
-            TroopRoster prisonRoster = party.PrisonRoster;
-
-            int offset = MBRandom.RandomInt(prisonRoster.Count);
-            for (var i = 0; i < prisonRoster.Count; i++)
+            foreach (var party in MobileParty.All)
             {
-                int index = (i + offset) % prisonRoster.Count;
-                
-                CharacterObject characterAtIndex = prisonRoster.GetCharacterAtIndex(index);
-                var newRecruits = __instance.GetNewRecruitables(party, characterAtIndex);
-
-                __instance.AddNewRecruits(party, characterAtIndex, newRecruits);
+                PrisonerRecruitmentHelpers.TryRecruitingPrisoners(party);
             }
         }
 

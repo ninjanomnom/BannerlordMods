@@ -1,9 +1,6 @@
-﻿using GantryLib.ReflectionHelpers;
-using HarmonyLib;
+﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
 using TaleWorlds.CampaignSystem;
 
 namespace GantryLib.ExpUnification
@@ -18,18 +15,9 @@ namespace GantryLib.ExpUnification
         internal static IEnumerable<CodeInstruction> DailyTick(IEnumerable<CodeInstruction> instructions)
         {
             var expMethod = typeof(TroopRoster).GetMethod("AddXpToTroop");
-            var noop = (new Func<int, CharacterObject, int>((xp, troop) => 0)).Method;
+            var noop = new Func<int, CharacterObject, int>((xp, troop) => 0).Method;
 
-            foreach (var instruction in instructions)
-            {
-                if(instruction.Calls(expMethod))
-                {
-                    yield return new CodeInstruction(OpCodes.Call, noop);
-                } else
-                {
-                    yield return instruction;
-                }
-            }
+            return instructions.MethodReplacer(expMethod, noop);
         }
 
         [HarmonyPostfix]
