@@ -1,33 +1,33 @@
-﻿using System;
+﻿using GantryLibInterface.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 
 namespace GantryLib.ExpUnification
 {
-    public class DailyExpHelpers
+    internal class DailyExpHelpers : IDailyExpHelpers
     {
-        internal static List<DailyExpSource> _sources = new List<DailyExpSource>();
+        public List<IDailyExpSource> Sources { get; private set; }
 
-        /// <summary>
-        /// Registers a new daily exp source to be queried for xp assignments
-        /// </summary>
-        /// <param name="source">The new source</param>
-        public static void Register(DailyExpSource source)
+        internal DailyExpHelpers()
         {
-            _sources.Add(source);
+            Sources = new List<IDailyExpSource>();
         }
 
-        public static void GiveExpToGroup(MobileParty party, float activeExp, float passiveExp)
+        public void Register(IDailyExpSource source)
+        {
+            Sources.Add(source);
+        }
+
+        public void GiveExpToGroup(MobileParty party, float activeExp, float passiveExp)
         {
             List<CharacterObject> trainees = party.MemberRoster.Troops.ToList();
             for (var i = 0; i < trainees.Count(); i++)
             {
                 float troopActive = 0;
                 float troopPassive = 0;
-                foreach (var source in _sources)
+                foreach (var source in Sources)
                 {
                     source.Character(party, i, out var characterA, out var characterB);
                     troopActive += characterA;

@@ -1,11 +1,9 @@
 using HarmonyLib;
+using System;
+using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.SandBox.GameComponents;
-using TaleWorlds.Core;
-using GantryLib.Extensions;
-using System;
-using System.Collections.Generic;
 
 namespace YANS.Content.PrisonerRecruitment
 {
@@ -42,7 +40,7 @@ namespace YANS.Content.PrisonerRecruitment
 
             var results = new float[maxTier];
 
-            for(var i = 0; i < maxTier; i++)
+            for (var i = 0; i < maxTier; i++)
             {
                 results[i] = PrisonerRecruitmentHelpers.GetPrisonerRecruitChance(mainParty, i);
             }

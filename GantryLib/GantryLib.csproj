@@ -71,13 +71,10 @@
   <!-- Files & Classes -->
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\ExpUnification\DailyExpHelpers.cs" />
-    <Compile Include="src\ExpUnification\DailyExpPatches.cs" />
-    <Compile Include="src\ExpUnification\DailyExpSource.cs" />
-    <Compile Include="src\Extensions\AgentExtensions.cs" />
-    <Compile Include="src\Extensions\EquipmentExtensions.cs" />
-    <Compile Include="src\Extensions\RecruitPrisonersCampaignBehaviorExtensions.cs" />
-    <Compile Include="src\Extensions\VillageExtension.cs" />
+    <Compile Include="src\EquipmentLib\EquipmentHelpers.cs" />
+    <Compile Include="src\ExperienceLib\DailyExpHelpers.cs" />
+    <Compile Include="src\ExperienceLib\DailyExpPatches.cs" />
+    <Compile Include="src\PrisonersLib\PrisonerUnificationHelpers.cs" />
     <Compile Include="SubModule.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +85,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GantryLibInterface\GantryLibInterface.csproj">
+      <Project>{a1d09c67-7352-4fba-b9c0-524af0a2c0ec}</Project>
+      <Name>GantryLibInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>xcopy /d /y "$(MSBuildProjectDirectory)\SubModule.xml" "E:\Gaming\SteamLibrary\Windows\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\GantryLib"</PostBuildEvent>

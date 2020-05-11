@@ -1,7 +1,7 @@
 ﻿<Module>
-  <Name value="GantryLib"/>
-  <Id value="GantryLib"/>
-  <Version value="v0.2.0"/>
+  <Name value="Bannerlord_Mod_1 a Bannerlord Mod"/>
+  <Id value="Bannerlord_Mod_1"/>
+  <Version value="v1.0.0"/>
   <SingleplayerModule value="true"/>
   <MultiplayerModule value="false"/>
   <DependedModules>
@@ -12,9 +12,9 @@
   </DependedModules>
   <SubModules>
     <SubModule>
-      <Name value="GantryLib"/>
-      <DLLName value="GantryLib.dll"/>
-      <SubModuleClassType value="GantryLib.SubModule"/>
+      <Name value="Bannerlord_Mod_1"/>
+      <DLLName value="Bannerlord_Mod_1.dll"/>
+      <SubModuleClassType value="Bannerlord_Mod_1.SubModule"/>
       <Tags>
         <Tag key="DedicatedServerType" value="none" />
         <Tag key="IsNoRenderModeElement" value="false" />

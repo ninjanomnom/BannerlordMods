@@ -1,4 +1,4 @@
-﻿using GantryLib.ExpUnification;
+﻿using GantryLibInterface.Interfaces;
 using HarmonyLib;
 using TaleWorlds.MountAndBlade;
 using YANS.Content;
@@ -7,11 +7,15 @@ namespace YANS
 {
     public class SubModule : MBSubModuleBase
     {
+        internal static SubModule Instance { get; private set; }
+        internal static IGantryLib GantryLib => GantryLibInterface.GantryLibInterface.GantryLib;
+
         private const string harmonyId = "mod.ninjanomnom.yans";
         private readonly Harmony harmony;
 
         public SubModule()
         {
+            Instance = this;
             harmony = new Harmony(harmonyId);
         }
 
@@ -19,14 +23,13 @@ namespace YANS
         {
             base.OnSubModuleLoad();
             harmony.PatchAll();
-
-            DailyExpHelpers.Register(new PartyTraining());
         }
 
-        protected override void OnSubModuleUnloaded()
+        protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {
-            base.OnSubModuleUnloaded();
-            harmony.UnpatchAll(harmonyId);
+            base.OnBeforeInitialModuleScreenSetAsRoot();
+
+            GantryLib.ExpHelpers.Register(new PartyTraining());
         }
     }
 }

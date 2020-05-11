@@ -1,18 +1,21 @@
-﻿using System;
+﻿using GantryLibInterface.Interfaces;
+using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.Core;
 
-namespace GantryLib.Extensions
+namespace GantryLib.PrisonerUnification
 {
-    public static class RecruitPrisonersCampaignBehaviorExtensions
+    public class PrisonerUnificationHelpers : IPrisonerHelpers
     {
-        public static int GetNewRecruitables(this RecruitPrisonersCampaignBehavior src, MobileParty party, CharacterObject prisoner, float chanceModifier = 1)
+        public int GetNewRecruitables(MobileParty party, CharacterObject prisoner, float chanceModifier = 1)
         {
+            var behavior = Campaign.Current.GetCampaignBehavior<RecruitPrisonersCampaignBehavior>();
+
             int recruitable = party == MobileParty.MainParty
-                ? src.GetRecruitableNumber(prisoner)
+                ? behavior.GetRecruitableNumber(prisoner)
                 : party.PrisonRoster.GetElementNumber(party.PrisonRoster.FindIndexOfTroop(prisoner));
-            
+
             if (recruitable <= 0)
             {
                 return 0;
@@ -20,7 +23,7 @@ namespace GantryLib.Extensions
 
             float[] dailyRecruitedPrisoners = Campaign.Current.Models.PrisonerRecruitmentCalculationModel.GetDailyRecruitedPrisoners(party);
 
-            if(dailyRecruitedPrisoners.Length <= prisoner.Tier)
+            if (dailyRecruitedPrisoners.Length <= prisoner.Tier)
             {
                 return 0;
             }
@@ -28,9 +31,9 @@ namespace GantryLib.Extensions
             float chance = dailyRecruitedPrisoners[prisoner.Tier] * chanceModifier;
 
             int newRecruited = 0;
-            for (var i = 0; i < recruitable; i++ )
+            for (var i = 0; i < recruitable; i++)
             {
-                if(MBRandom.RandomFloat >= chance)
+                if (MBRandom.RandomFloat >= chance)
                 {
                     continue;
                 }
@@ -42,12 +45,13 @@ namespace GantryLib.Extensions
             return newRecruited;
         }
 
-        public static void AddNewRecruits(this RecruitPrisonersCampaignBehavior src, MobileParty party, CharacterObject prisoner, int amount)
+        public void AddNewRecruits(MobileParty party, CharacterObject prisoner, int amount)
         {
-            var recruitable = src.GetRecruitableNumber(prisoner);
+            var behavior = Campaign.Current.GetCampaignBehavior<RecruitPrisonersCampaignBehavior>();
+            var recruitable = behavior.GetRecruitableNumber(prisoner);
             var newTotal = Math.Min(recruitable + amount, party.PrisonRoster.GetTroopCount(prisoner));
 
-            src.SetRecruitableNumber(prisoner, newTotal);
+            behavior.SetRecruitableNumber(prisoner, newTotal);
         }
     }
 }

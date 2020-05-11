@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GantryLib")]
+[assembly: AssemblyTitle("GantryLibInterface")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GantryLib")]
+[assembly: AssemblyProduct("GantryLibInterface")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("04be4465-5fec-4282-a545-830bbe397353")]
+[assembly: Guid("a1d09c67-7352-4fba-b9c0-524af0a2c0ec")]
 
 // Version information for an assembly consists of the following four values:
 //

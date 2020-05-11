@@ -6,7 +6,7 @@ using TaleWorlds.CampaignSystem;
 namespace GantryLib.ExpUnification
 {
     [HarmonyPatch]
-    public static class DailyExpUnification
+    internal static class DailyExpUnification
     {
         // We're replacing all exp handling in these functions so lets remove anything that grants exp
         [HarmonyTranspiler]
@@ -31,9 +31,11 @@ namespace GantryLib.ExpUnification
                 return;
             }
 
+            var helpers = SubModule.Instance.ExpHelpers;
+
             float activeExp = 0;
             float passiveExp = 0;
-            foreach (var source in DailyExpHelpers._sources)
+            foreach (var source in helpers.Sources)
             {
                 source.Generic(garrison, out var genericA, out var genericP);
                 source.Town(garrison, __instance, out var townA, out var townB);
@@ -41,29 +43,31 @@ namespace GantryLib.ExpUnification
                 passiveExp += genericP + townB;
             }
 
-            DailyExpHelpers.GiveExpToGroup(garrison, activeExp, passiveExp);
+            helpers.GiveExpToGroup(garrison, activeExp, passiveExp);
         }
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(MobileParty), "DailyTick")]
         internal static void PartyDailyTick(MobileParty __instance)
         {
-            if(!__instance.IsActive)
+            if (!__instance.IsActive)
             {
                 return;
             }
 
+            var helpers = SubModule.Instance.ExpHelpers;
+
             float activeExp = 0;
             float passiveExp = 0;
-            foreach(var source in DailyExpHelpers._sources)
+            foreach (var source in helpers.Sources)
             {
                 source.Generic(__instance, out var genericA, out var genericP);
                 source.Party(__instance, out var partyA, out var partyP);
                 activeExp += genericA + partyA;
-                passiveExp += genericP + partyP; 
+                passiveExp += genericP + partyP;
             }
 
-            DailyExpHelpers.GiveExpToGroup(__instance, activeExp, passiveExp);
+            helpers.GiveExpToGroup(__instance, activeExp, passiveExp);
         }
     }
 }

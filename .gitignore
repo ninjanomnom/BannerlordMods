@@ -6,3 +6,5 @@ YAS/TODO.txt
 *.user
 
 GantryLib/bin/
+
+GantryLibInterface/bin/

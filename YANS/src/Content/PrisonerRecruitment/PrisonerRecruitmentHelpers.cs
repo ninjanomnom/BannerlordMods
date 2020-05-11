@@ -1,10 +1,7 @@
 ﻿using System;
-using GantryLib.Extensions;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.Core;
-using TaleWorlds.Library;
 
 namespace YANS.Content.PrisonerRecruitment
 {
@@ -35,7 +32,7 @@ namespace YANS.Content.PrisonerRecruitment
         internal static void TryRecruitingPrisoners(MobileParty party)
         {
             // Leaderless just checks if they're in a garrison apparently??
-            if(party.IsLeaderless || party.Leader is null || party?.Party?.Owner is null)
+            if (party.IsLeaderless || party.Leader is null || party?.Party?.Owner is null)
             {
                 return;
             }
@@ -50,34 +47,26 @@ namespace YANS.Content.PrisonerRecruitment
                 int index = (i + offset) % prisonRoster.Count;
 
                 CharacterObject characterAtIndex = prisonRoster.GetCharacterAtIndex(index);
-                if(characterAtIndex.IsHero)
+                if (characterAtIndex.IsHero)
                 {
                     continue;
                 }
 
                 var troopWillingness = GetWillingnessForTroop(willingness, party, characterAtIndex);
-                
-                var newRecruits = behavior.GetNewRecruitables(party, characterAtIndex, troopWillingness);
 
-                if(newRecruits <= 0)
+                var newRecruits = SubModule.GantryLib.PrisonerHelpers.GetNewRecruitables(party, characterAtIndex, troopWillingness);
+
+                if (newRecruits <= 0)
                 {
                     continue;
                 }
 
-                if(party == MobileParty.MainParty)
+                if (party == MobileParty.MainParty)
                 {
-                    behavior.AddNewRecruits(party, characterAtIndex, newRecruits);
-                } else
+                    SubModule.GantryLib.PrisonerHelpers.AddNewRecruits(party, characterAtIndex, newRecruits);
+                }
+                else
                 {
-                    // No idea what prisoner recruitment is calculated as
-                    var cost = characterAtIndex.PrisonerRansomValue();
-                    var totalCost = cost * newRecruits;
-                    if(party.Party.Owner.Gold < totalCost)
-                    {
-                        newRecruits = (int)Math.Floor((double)party.Party.Owner.Gold / cost);
-                        totalCost = cost * newRecruits;
-                    }
-                    GiveGoldAction.ApplyBetweenCharacters(party.Party.Owner, null, totalCost, true);
                     party.PrisonRoster.AddToCounts(characterAtIndex, -newRecruits);
                     party.MemberRoster.AddToCounts(characterAtIndex, newRecruits);
                 }
@@ -93,18 +82,20 @@ namespace YANS.Content.PrisonerRecruitment
                 troopWillingness += willingness.bandit;
             }
 
-            if(troop.Tier > 4)
+            if (troop.Tier > 4)
             {
                 troopWillingness += willingness.skilled;
-            } else
+            }
+            else
             {
                 troopWillingness += willingness.unskilled;
             }
 
-            if(troop.Culture == party.Leader.Culture)
+            if (troop.Culture == party.Leader.Culture)
             {
                 troopWillingness += willingness.ownCulture;
-            } else
+            }
+            else
             {
                 troopWillingness += willingness.otherCulture;
             }
