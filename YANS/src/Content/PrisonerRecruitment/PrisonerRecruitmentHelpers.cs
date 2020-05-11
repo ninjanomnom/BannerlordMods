@@ -5,7 +5,7 @@ using TaleWorlds.Core;
 
 namespace YANS.Content.PrisonerRecruitment
 {
-    public class PrisonerRecruitmentHelpers
+    public static class PrisonerRecruitmentHelpers
     {
         private struct Willingness
         {

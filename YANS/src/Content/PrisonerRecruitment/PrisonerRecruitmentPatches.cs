@@ -15,7 +15,7 @@ namespace YANS.Content.PrisonerRecruitment
         internal static IEnumerable<CodeInstruction> DailyTick(IEnumerable<CodeInstruction> instructions)
         {
             var prisonersRecruitMethod = typeof(DefaultPrisonerRecruitmentCalculationModel).GetMethod("GetDailyRecruitedPrisoners");
-            var noop = new Func<MobileParty, float[]>((party) => new float[0]).Method;
+            var noop = new Func<MobileParty, float[]>((party) => Array.Empty<float>()).Method;
 
             return instructions.MethodReplacer(prisonersRecruitMethod, noop);
         }
