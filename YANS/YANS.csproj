@@ -1,10 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Main Project Properties -->
-  <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
-  <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" />
-  <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" />
-  <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props')" />
-  <Import Project="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -49,9 +44,6 @@
   </PropertyGroup>
   <!-- Bannerlord Native Assemblies -->
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.0.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Lib.Harmony.2.0.0.10\lib\net472\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="E:\Gaming\SteamLibrary\Windows\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
@@ -83,16 +75,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="src\Content\PartyTraining.cs" />
     <Compile Include="src\Content\PrisonerRecruitment\PrisonerRecruitmentHelpers.cs" />
     <Compile Include="src\Content\PrisonerRecruitment\PrisonerRecruitmentPatches.cs" />
+    <Compile Include="src\Content\ScalingExp\ScalingBehavior.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="SubModule.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -105,15 +96,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\analyzers\dotnet\cs\Humanizer.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+    <PackageReference Include="Lib.Harmony" Version="2.0.0.10" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6" />
+    <PackageReference Include="Microsoft.CodeAnalysis.VersionCheckAnalyzer" Version="2.9.6" />
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.6" />
+    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.6" />
+    <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.9.6" />
   </ItemGroup>
   <!-- Post-Build -->
   <PropertyGroup>
@@ -123,14 +111,4 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
-  </Target>
 </Project>

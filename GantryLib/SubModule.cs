@@ -2,34 +2,37 @@
 using GantryLib.PrisonerUnification;
 using GantryLibInterface.Interfaces;
 using HarmonyLib;
+using JetBrains.Annotations;
 using TaleWorlds.MountAndBlade;
 
 namespace GantryLib
 {
+    [UsedImplicitly]
     public class SubModule : MBSubModuleBase, IGantryLib
     {
-        public IDailyExpHelpers ExpHelpers { get; private set; }
         public IPrisonerHelpers PrisonerHelpers { get; private set; }
 
-        internal static IGantryLib Instance { get; private set; }
+        public IExpController ExpController => InternalExpController;
+        internal ExpController InternalExpController { get; private set; }
 
-        private const string harmonyId = "mod.ninjanomnom.GantryLib";
-        private readonly Harmony harmony;
+        internal static SubModule Instance { get; private set; }
 
-        public SubModule()
-        {
+        private const string HarmonyId = "mod.ninjanomnom.GantryLib";
+        private readonly Harmony _harmony;
+
+        public SubModule() {
             Instance = this;
-            harmony = new Harmony(harmonyId);
+            _harmony = new Harmony(HarmonyId);
         }
 
-        protected override void OnSubModuleLoad()
-        {
+        protected override void OnSubModuleLoad() {
             base.OnSubModuleLoad();
 
-            ExpHelpers = new DailyExpHelpers();
             PrisonerHelpers = new PrisonerUnificationHelpers();
 
-            harmony.PatchAll();
+            InternalExpController = new ExpController();
+
+            _harmony.PatchAll();
         }
     }
 }

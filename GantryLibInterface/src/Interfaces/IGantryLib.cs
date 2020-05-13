@@ -1,9 +1,12 @@
-﻿namespace GantryLibInterface.Interfaces
+﻿using JetBrains.Annotations;
+
+namespace GantryLibInterface.Interfaces
 {
+    [PublicAPI]
     public interface IGantryLib
     {
-        IDailyExpHelpers ExpHelpers { get; }
+        [PublicAPI] IPrisonerHelpers PrisonerHelpers { get; }
 
-        IPrisonerHelpers PrisonerHelpers { get; }
+        [PublicAPI] IExpController ExpController { get; }
     }
 }

@@ -42,9 +42,6 @@
   </PropertyGroup>
   <!-- Bannerlord Native Assemblies -->
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.0.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.2.0.0.10\lib\net472\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="E:\Gaming\SteamLibrary\Windows\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
@@ -72,13 +69,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\EquipmentLib\EquipmentHelpers.cs" />
-    <Compile Include="src\ExperienceLib\DailyExpHelpers.cs" />
     <Compile Include="src\ExperienceLib\DailyExpPatches.cs" />
+    <Compile Include="src\ExperienceLib\Defaults\DefaultDailyExpBehavior.cs" />
+    <Compile Include="src\ExperienceLib\Defaults\DefaultDailyExpSource.cs" />
+    <Compile Include="src\ExperienceLib\ExpController.cs" />
     <Compile Include="src\PrisonersLib\PrisonerUnificationHelpers.cs" />
     <Compile Include="SubModule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -92,7 +90,9 @@
       <Name>GantryLibInterface</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.0.0.10" />
+  </ItemGroup>
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>xcopy /d /y "$(MSBuildProjectDirectory)\SubModule.xml" "E:\Gaming\SteamLibrary\Windows\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\GantryLib"</PostBuildEvent>

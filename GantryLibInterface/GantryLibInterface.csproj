@@ -42,9 +42,6 @@
   </PropertyGroup>
   <!-- Bannerlord Native Assemblies -->
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.2.0.1\lib\net472\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="E:\Gaming\SteamLibrary\Windows\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
@@ -71,18 +68,19 @@
   <!-- Files & Classes -->
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\AbstractClasses\DailyExpBehavior.cs" />
     <Compile Include="src\AbstractClasses\DailyExpSource.cs" />
     <Compile Include="src\GantryLibInterface.cs" />
-    <Compile Include="src\Interfaces\IDailyExpHelpers.cs" />
+    <Compile Include="src\Interfaces\IDailyExpBehavior.cs" />
     <Compile Include="src\Interfaces\IDailyExpSource.cs" />
     <Compile Include="src\Interfaces\IEquipmentHelpers.cs" />
+    <Compile Include="src\Interfaces\IExpController.cs" />
     <Compile Include="src\Interfaces\IGantryLib.cs" />
     <Compile Include="src\Interfaces\IPrisonerHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <PackageReference Include="Lib.Harmony" Version="2.0.1" />
   </ItemGroup>
-  <ItemGroup />
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>
